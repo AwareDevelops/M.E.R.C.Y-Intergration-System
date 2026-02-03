@@ -1,0 +1,368 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mercy-bot.com/schemas/integration.json",
+  "title": "M.E.R.C.Y Integration Configuration",
+  "description": "Configuration schema for M.E.R.C.Y Discord bot integrations",
+  "type": "object",
+  "required": ["id", "name", "version", "description", "category", "developer"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-_]+$",
+      "minLength": 3,
+      "maxLength": 50,
+      "description": "Unique identifier for the integration (lowercase, numbers, hyphens, underscores only)"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 50,
+      "description": "Display name of the integration"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version of the integration (x.y.z)"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 500,
+      "description": "Detailed description of what the integration does"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["moderation", "utility", "entertainment", "automation", "analytics", "security"],
+      "description": "Integration category for marketplace organization"
+    },
+    "developer": {
+      "type": "object",
+      "required": ["name", "email"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100,
+          "description": "Developer or organization name"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Contact email address"
+        },
+        "github": {
+          "type": "string",
+          "format": "uri",
+          "description": "GitHub profile or organization URL"
+        },
+        "website": {
+          "type": "string",
+          "format": "uri",
+          "description": "Developer website or portfolio"
+        },
+        "discord": {
+          "type": "string",
+          "description": "Discord username for contact"
+        }
+      }
+    },
+    "repository": {
+      "type": "object",
+      "required": ["url"],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "GitHub repository URL"
+        },
+        "branch": {
+          "type": "string",
+          "default": "main",
+          "description": "Git branch to use for deployment"
+        },
+        "directory": {
+          "type": "string",
+          "description": "Subdirectory containing the integration (if not root)"
+        }
+      }
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "ViewChannel",
+          "SendMessages",
+          "EmbedLinks",
+          "AttachFiles",
+          "ReadMessageHistory",
+          "UseExternalEmojis",
+          "AddReactions",
+          "ManageMessages",
+          "ManageThreads",
+          "CreatePublicThreads",
+          "CreatePrivateThreads",
+          "UseSlashCommands",
+          "ManageRoles",
+          "KickMembers",
+          "BanMembers",
+          "ModerateMembers"
+        ]
+      },
+      "uniqueItems": true,
+      "description": "Discord permissions required by the integration"
+    },
+    "intents": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Guilds",
+          "GuildMembers",
+          "GuildMessages",
+          "GuildMessageReactions",
+          "GuildVoiceStates",
+          "GuildPresences",
+          "MessageContent"
+        ]
+      },
+      "uniqueItems": true,
+      "description": "Discord gateway intents required by the integration"
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "messageCreate",
+          "messageUpdate",
+          "messageDelete",
+          "guildMemberAdd",
+          "guildMemberRemove",
+          "guildMemberUpdate",
+          "guildBanAdd",
+          "guildBanRemove",
+          "voiceStateUpdate",
+          "channelCreate",
+          "channelUpdate",
+          "channelDelete",
+          "roleCreate",
+          "roleUpdate",
+          "roleDelete",
+          "interactionCreate"
+        ]
+      },
+      "uniqueItems": true,
+      "description": "Discord events the integration listens to"
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "axios",
+          "lodash",
+          "moment",
+          "uuid",
+          "crypto"
+        ]
+      },
+      "uniqueItems": true,
+      "description": "Allowed NPM dependencies (limited for security)"
+    },
+    "settings": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z][a-zA-Z0-9_]*$": {
+          "type": "object",
+          "required": ["type"],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["string", "number", "boolean", "channel", "role", "user", "choice"]
+            },
+            "description": {
+              "type": "string",
+              "maxLength": 200
+            },
+            "default": {},
+            "required": {
+              "type": "boolean",
+              "default": false
+            },
+            "min": {
+              "type": "number",
+              "description": "Minimum value for number type"
+            },
+            "max": {
+              "type": "number",
+              "description": "Maximum value for number type"
+            },
+            "choices": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["name", "value"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "value": { "type": "string" }
+                }
+              },
+              "description": "Available choices for choice type"
+            }
+          }
+        }
+      },
+      "description": "Configurable settings for the integration"
+    },
+    "commands": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "description"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[a-z0-9-_]+$",
+            "minLength": 1,
+            "maxLength": 32
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["name", "description", "type"],
+              "properties": {
+                "name": { "type": "string" },
+                "description": { "type": "string" },
+                "type": { "type": "string" },
+                "required": { "type": "boolean", "default": false }
+              }
+            }
+          }
+        }
+      },
+      "description": "Slash commands provided by the integration"
+    },
+    "webhooks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "description"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[a-z0-9-_]+$"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "method": {
+            "type": "string",
+            "enum": ["GET", "POST", "PUT", "DELETE"],
+            "default": "POST"
+          }
+        }
+      },
+      "description": "Webhook endpoints the integration can create"
+    },
+    "resources": {
+      "type": "object",
+      "properties": {
+        "maxExecutionTime": {
+          "type": "number",
+          "minimum": 1000,
+          "maximum": 30000,
+          "default": 30000,
+          "description": "Maximum execution time in milliseconds"
+        },
+        "maxMemoryUsage": {
+          "type": "number",
+          "minimum": 1048576,
+          "maximum": 104857600,
+          "default": 104857600,
+          "description": "Maximum memory usage in bytes"
+        },
+        "maxFileSize": {
+          "type": "number",
+          "minimum": 1024,
+          "maximum": 1048576,
+          "default": 1048576,
+          "description": "Maximum file size for operations in bytes"
+        }
+      }
+    },
+    "flags": {
+      "type": "object",
+      "properties": {
+        "premium": {
+          "type": "boolean",
+          "default": false,
+          "description": "Requires premium M.E.R.C.Y subscription"
+        },
+        "experimental": {
+          "type": "boolean",
+          "default": false,
+          "description": "Experimental integration (may have issues)"
+        },
+        "beta": {
+          "type": "boolean",
+          "default": false,
+          "description": "Beta version (for testing only)"
+        }
+      }
+    },
+    "support": {
+      "type": "object",
+      "properties": {
+        "documentation": {
+          "type": "string",
+          "format": "uri",
+          "description": "Link to integration documentation"
+        },
+        "discord": {
+          "type": "string",
+          "description": "Discord server invite for support"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Support email address"
+        },
+        "issues": {
+          "type": "string",
+          "format": "uri",
+          "description": "GitHub issues URL for bug reports"
+        }
+      }
+    },
+    "changelog": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["version", "date", "changes"],
+        "properties": {
+          "version": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "changes": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      },
+      "description": "Version history and changelog"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "name": "mercy-integration-dev-kit",
+  "version": "1.0.0",
+  "description": "M.E.R.C.Y Integration Development Kit - Create secure integrations for M.E.R.C.Y bot",
+  "main": "src/integration-template.js",
+  "type": "module",
+  "scripts": {
+    "init": "node scripts/init-integration.js",
+    "validate": "node scripts/validate-integration.js",
+    "test": "node scripts/test-integration.js",
+    "package": "node scripts/package-integration.js",
+    "publish": "node scripts/publish-integration.js"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "integration",
+    "mercy",
+    "moderation"
+  ],
+  "author": "M.E.R.C.Y Development Team",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "axios": "^1.6.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.55.0",
+    "jest": "^29.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mercy-development/integration-dev-kit.git"
+  },
+  "mercy": {
+    "apiVersion": "1.0",
+    "supportedVersions": ["1.0.0"],
+    "securityLevel": "sandbox",
+    "maxExecutionTime": 30000,
+    "maxMemoryUsage": 104857600
+  }
+}
