@@ -6,7 +6,7 @@ Create powerful, secure integrations for the M.E.R.C.Y Discord moderation bot sy
 
 1. **Clone this repository**
    ```bash
-   git clone https://github.com/mercy-development/integration-dev-kit.git
+   git clone https://github.com/AwareDevelops/M.E.R.C.Y-Intergration-System.git
    cd integration-dev-kit
    ```
 
@@ -30,11 +30,6 @@ Create powerful, secure integrations for the M.E.R.C.Y Discord moderation bot sy
    npm run validate
    npm run package
    ```
-
-6. **Submit to M.E.R.C.Y**
-   - Create a GitHub repository for your integration
-   - Submit the repository URL to M.E.R.C.Y administrators
-   - Wait for security review and approval
 
 ## 📋 Integration Structure
 
