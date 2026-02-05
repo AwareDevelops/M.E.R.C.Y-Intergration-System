@@ -213,51 +213,6 @@ const guild = new MockGuild('123456789', 'Test Server');
 const channel = new MockChannel('987654321', 'test-channel');
 ```
 
-## 📦 Packaging & Submission
-
-1. **Package your integration**
-   ```bash
-   npm run package
-   ```
-
-2. **Create GitHub repository**
-   - Make your repository public
-   - Include all integration files
-   - Add comprehensive README
-   - Follow semantic versioning
-
-3. **Submit for review**
-   - Email: integrations@mercy-bot.com
-   - Include: Repository URL, description, testing instructions
-   - Review time: 3-7 business days
-
-## 🔍 Review Process
-
-1. **Automated Security Scan**
-   - Code analysis for vulnerabilities
-   - Dependency security check
-   - Resource usage validation
-
-2. **Manual Code Review**
-   - Security best practices
-   - Code quality assessment
-   - Functionality verification
-
-3. **Live Testing**
-   - Integration testing with real Discord data
-   - Performance benchmarking
-   - Edge case validation
-
-4. **Approval & Publication**
-   - Integration added to marketplace
-   - Developer notification
-   - Version tracking enabled
-
-## 🆘 Support
-
-- **Documentation**: https://docs.mercy-bot.com/integrations
-- **Discord Server**: https://discord.gg/mercy-dev
-- **Email Support**: dev-support@mercy-bot.com
 - **GitHub Issues**: https://github.com/mercy-development/integration-dev-kit/issues
 
 ## 📄 License
