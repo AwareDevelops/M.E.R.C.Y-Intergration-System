@@ -21,6 +21,9 @@ import readline from 'readline';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Allowed dependencies for integrations (used in both init and validation)
+const ALLOWED_DEPENDENCIES = ['discord.js', 'axios', 'lodash', 'moment', 'uuid'];
+
 // Lazy load discord.js only when needed (for IntegrationTemplate usage)
 let EmbedBuilder;
 async function loadDiscordJS() {
@@ -879,9 +882,8 @@ export async function validateIntegration() {
 
                 // Check dependencies
                 if (pkg.dependencies) {
-                    const allowedDeps = ['discord.js', 'axios', 'lodash', 'moment', 'uuid'];
                     for (const dep of Object.keys(pkg.dependencies)) {
-                        if (!allowedDeps.includes(dep)) {
+                        if (!ALLOWED_DEPENDENCIES.includes(dep)) {
                             results.errors.push(`Unauthorized dependency: ${dep}`);
                             results.score -= 15;
                         }
